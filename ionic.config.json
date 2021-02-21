@@ -1,0 +1,7 @@
+{
+  "name": "M9Videojoc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
