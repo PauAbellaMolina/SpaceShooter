@@ -21,6 +21,11 @@
 
 <body>
   <app-root></app-root>
+  <script>
+    window.addEventListener("load", function(){
+      document.getElementById("game").appendChild(document.getElementsByTagName('canvas')[0]);
+    });
+  </script>
 </body>
 
 </html>
