@@ -1,6 +1,7 @@
 export default class FirstScene extends Phaser.Scene {
   ship: Phaser.GameObjects.Sprite;
   bullet: Phaser.GameObjects.Sprite;
+  enemyBase: Phaser.GameObjects.Sprite;
   fireButton: Phaser.Input.Keyboard.Key;
   bulletTime: number;
   fireButtonTouch: Phaser.Input.Pointer;
@@ -10,6 +11,11 @@ export default class FirstScene extends Phaser.Scene {
   sKey: Phaser.Input.Keyboard.Key;
   dKey: Phaser.Input.Keyboard.Key;
   shipVel: number;
+  arrayBullets: Array<Bullet> = [];
+  arrayEnemiesBase: Array<EnemyBase> = [];
+  bulletObject: Bullet;
+  enemyBaseObject1: EnemyBase;
+  enemyBaseObject2: EnemyBase;
 
   constructor(config) {
     super(config);
@@ -22,6 +28,7 @@ export default class FirstScene extends Phaser.Scene {
     //Load assets
     this.load.image('ship', 'assets/ship.png');
     this.load.image('bullet', 'assets/bullet.png');
+    this.load.image('enemyBase', 'assets/enemyBase.png');
   }
 
   create() {
@@ -42,6 +49,11 @@ export default class FirstScene extends Phaser.Scene {
 
     //Add assets
     this.ship = this.make.sprite({ x: window.innerWidth/2, y: window.innerHeight/2, key: 'ship', scale: { x: .2, y: .2 } });
+    // this.enemyBase = this.make.sprite({ x: window.innerWidth/2, y: 300, key: 'enemyBase', scale: { x: .2, y: .2 } });
+    this.enemyBaseObject1 = new EnemyBase(this, window.innerWidth/4, 300, 'enemyBase');
+    this.enemyBaseObject2 = new EnemyBase(this, window.innerWidth/2, 300, 'enemyBase');
+    this.arrayEnemiesBase.push(this.enemyBaseObject1);
+    this.arrayEnemiesBase.push(this.enemyBaseObject2);
   }
 
   update() {
@@ -51,16 +63,16 @@ export default class FirstScene extends Phaser.Scene {
       this.ship.y = this.input.pointer1.y;
     }
 
-    if (this.wKey.isDown) {
+    if (this.wKey.isDown && this.ship.y > 0) {
       this.ship.y -= this.shipVel;
     }
-    if (this.aKey.isDown) {
+    if (this.aKey.isDown && this.ship.x > 0) {
       this.ship.x -= this.shipVel;
     }
-    if (this.sKey.isDown) {
+    if (this.sKey.isDown && this.ship.y < window.innerHeight) {
       this.ship.y += this.shipVel;
     }
-    if (this.dKey.isDown) {
+    if (this.dKey.isDown && this.ship.x < window.innerWidth) {
       this.ship.x += this.shipVel;
     }
 
@@ -68,9 +80,12 @@ export default class FirstScene extends Phaser.Scene {
     if (this.fireButton.isDown || this.input.pointer2.active) {
       this.fireBullet();
     }
+
+    //Cada pas de loop comprovem si alguna bala dona a l'enemic
+    this.checkhit(this.arrayEnemiesBase, this.arrayBullets);
   }
 
-
+  //----------METODES-----------
   fireBullet() {
     //Delay al disparar
     if (this.time.now > this.bulletTime) {
@@ -80,17 +95,63 @@ export default class FirstScene extends Phaser.Scene {
       if (this.fireButton.timeDown < this.time.now - 100 && this.fireButtonTouch.downTime < this.time.now - 100) {
         this.bulletTime = this.time.now + 500;
       } else { //Si spameas el click, dispares amb menys cooldown ;)
-        this.bulletTime = this.time.now + 150;
+        this.bulletTime = this.time.now + 120;
       }
 
-      new Bullet(this, this.ship.x, this.ship.y, 'bullet');
+      this.bulletObject = new Bullet(this, this.ship.x, this.ship.y-60, 'bullet', this.enemyBase);
+      this.arrayBullets.push(this.bulletObject);
+
     }
   }
+
+  checkhit(arrayEnemiesBase: Array<EnemyBase>, arrayBullets: Array<Bullet>) {
+    arrayBullets.forEach(elementBullet => {
+      arrayEnemiesBase.forEach(elementEnemy => {
+        if(this.hit(elementBullet, elementEnemy)) {
+          elementEnemy.destroy();
+          elementBullet.destroy();
+
+          arrayEnemiesBase.splice(arrayEnemiesBase.indexOf(elementEnemy), 1);
+          arrayBullets.splice(arrayBullets.indexOf(elementBullet), 1);
+        }
+      });
+    });
+  }
+
+  hit(a: Bullet, b: EnemyBase) {
+    let bool = false;
+
+    //Col·lisions horitzontals
+    if (b.x + b.width >= a.x && b.x < a.x + a.width) {
+      //Col·lisions verticals
+      if (b.y + b.height >= a.y && b.y < a.y + a.height)
+        bool = true;
+    }
+    //Col·lisió de a amb b
+    if (b.x <= a.x && b.x + b.width >= a.x + a.width) {
+      if (b.y <= a.y && b.y + b.height >= a.y + a.height)
+        bool = true;
+    }
+    //Col·lisió de b amb a
+    if (a.x <= b.x && a.x + a.width >= b.x + b.width) {
+      if (a.y <= b.y && a.y + a.height >= b.y + b.height)
+        bool = true;
+    }
+
+    return bool;
+  }
+
 }
 
+
+//-----------CLASSES-------------
+
 class Bullet extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, bullet) {
+  enemyBase: Phaser.GameObjects.Sprite;
+  constructor(scene, x, y, bullet, enemyBase) {
     super(scene, x, y, bullet);
+
+    this.enemyBase = enemyBase;
 
     scene.add.existing(this);
   }
@@ -104,6 +165,21 @@ class Bullet extends Phaser.GameObjects.Sprite {
   }
 
   preUpdate () {
-    this.update(); // Comment this and update stop working
+    this.update(); //No se del tot que fa, pero sense aixo, l'update no tira
+  }
+}
+
+class EnemyBase extends Phaser.GameObjects.Sprite {
+  constructor(scene, x, y, enemyBase) {
+    super(scene, x, y, enemyBase);
+
+    scene.add.existing(this);
+  }
+
+  update() {
+  }
+
+  preUpdate () {
+    this.update(); //No se del tot que fa, pero sense aixo, l'update no tira
   }
 }

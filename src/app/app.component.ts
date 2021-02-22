@@ -44,6 +44,9 @@ export class AppComponent {
       },
       render: {
         pixelArt: true
+      },
+      physics: {
+        default: 'arcade',
       }
     };
 
