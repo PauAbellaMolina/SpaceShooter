@@ -72,7 +72,7 @@ export default class FirstScene extends Phaser.Scene {
     //Logic run every 16ms
     if (this.input.pointer1.active) {
       this.ship.x = this.input.pointer1.x;
-      this.ship.y = this.input.pointer1.y;
+      this.ship.y = this.input.pointer1.y - 50;
     }
 
     if (this.wKey.isDown && this.ship.y > 0) {
