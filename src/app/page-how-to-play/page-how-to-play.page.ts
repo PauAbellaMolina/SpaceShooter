@@ -31,6 +31,59 @@ export class PageHowToPlayPage implements OnInit {
     }
   }
 
+  movement() {
+    switch (this.lang) {
+      case "en":
+        return "Use WASD or touch the screen to move around"
+        break;
+      case "ca":
+        return "Utilitza el WASD o toca la pantalla per moure't"
+        break;
+      case "es":
+        return "Utiliza el WASD o toca la pantalla para moverte"
+        break;
+    }
+  }
+  shooting() {
+    switch (this.lang) {
+      case "en":
+        return "Use SPACE or tap with another finger to shoot"
+        break;
+      case "ca":
+        return "Utilitza l'ESPAI o toca amb un altre dit per disparar"
+        break;
+      case "es":
+        return "Utiliza el ESPACIO o toca amb un altre dit per disparar"
+        break;
+    }
+  }
+  shootingAux() {
+    switch (this.lang) {
+      case "en":
+        return "Hold SPACE to shoot repeatedly or SPAM it to shoot faster"
+        break;
+      case "ca":
+        return "Manté l'ESPAI per disparar repetidament o CLICA'L per disparar més ràpid"
+        break;
+      case "es":
+        return "Mantén el ESPACIO para disparar repetidamente o PULSALO para disparar más rápido"
+        break;
+    }
+  }
+  energy() {
+    switch (this.lang) {
+      case "en":
+        return "Every bullet costs you 10% of energy. Every kill restores 10%"
+        break;
+      case "ca":
+        return "Cada bala et costa 10% d'energía. Cada mort en restaura 10%"
+        break;
+      case "es":
+        return "Cada bala cuesta 10% de energía. Cada muerte restaura 10%"
+        break;
+    }
+  }
+
   play() {
     switch (this.lang) {
       case "en":

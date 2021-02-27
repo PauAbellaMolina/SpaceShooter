@@ -9,8 +9,9 @@ export class EnemyBase extends Phaser.GameObjects.Sprite {
   bulletObject: any;
   counter: number = 0;
   arrayBullets: Array<Bullet> = [];
+  bullVel: number;
 
-  constructor(scene, x, y, enemyBase) {
+  constructor(scene, x, y, enemyBase, bullVel) {
     super(scene, x, y, enemyBase);
 
     //0 = abaix
@@ -25,20 +26,24 @@ export class EnemyBase extends Phaser.GameObjects.Sprite {
     this.axisX = Math.floor(Math.random() * (2 - 0)) + 0;
     this.axisY = Math.floor(Math.random() * (2 - 0)) + 0;
 
+    this.bullVel = bullVel;
+
     scene.add.existing(this);
   }
 
   update() {
-    if(this.x < 0 || this.x > window.innerWidth) {
+    //Bounds bounce
+    if(this.x < 10 || this.x > window.innerWidth-10) {
       if (this.axisX == 0) { this.axisX = 1; this.enemyVelX = Math.floor(Math.random() * (14 - 5)) + 5; } else { this.axisX = 0; this.enemyVelX = Math.floor(Math.random() * (14 - 5)) + 5; }
       this.axisY = Math.floor(Math.random() * (2 - 0)) + 0;
     }
 
-    if(this.y < 0 || this.y > window.innerHeight) {
+    if(this.y < 10 || this.y > window.innerHeight-10) {
       if (this.axisY == 0) { this.axisY = 1; this.enemyVelX = Math.floor(Math.random() * (10 - 3)) + 3; } else { this.axisY = 0; this.enemyVelX = Math.floor(Math.random() * (10 - 3)) + 3; }
       this.axisX = Math.floor(Math.random() * (2 - 0)) + 0;
     }
 
+    //Movement
     if (this.axisX == 0) {
       this.x -= this.enemyVelX;
     } else if (this.axisX == 1) {
@@ -53,12 +58,15 @@ export class EnemyBase extends Phaser.GameObjects.Sprite {
 
     this.counter += 0.1;
 
-    if(Number(this.counter.toFixed(1))%5 == 0)
-      this.bulletObject = new Bullet(this.scene, this.x, this.y, 'bulletEnemyBase', 10, true);
+    //Every a bit of time, shoot
+    if(Number(this.counter.toFixed(1))%5 == 0) {
+      this.bulletObject = new Bullet(this.scene, this.x, this.y, 'bulletEnemyBase', this.bullVel, true);
       this.arrayBullets.push(this.bulletObject);
+    }
 
   }
 
+  //Remove the destroyed bullet from the array
   destroyHittedBullet(elementBullet: Bullet) {
     this.arrayBullets.splice(this.arrayBullets.indexOf(elementBullet), 1);
   }

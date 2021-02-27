@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-page-game-over',
-  templateUrl: './page-game-over.page.html',
-  styleUrls: ['./page-game-over.page.scss'],
+  selector: 'app-page-game-won',
+  templateUrl: './page-game-won.page.html',
+  styleUrls: ['./page-game-won.page.scss'],
 })
-export class PageGameOverPage implements OnInit {
+export class PageGameWonPage implements OnInit {
   lang: string;
   score: string;
 
   constructor() {
-    this.lang = location.pathname.replace('/', '').replace('/gameOver', '');
+    this.lang = location.pathname.replace('/', '').replace('/gameWon', '');
     if(this.lang == "")
-      window.location.href = "/en/gameOver";
+      window.location.href = "/en/gameWon";
 
     if(window.location.href.indexOf('?score=') != -1)
       this.score = window.location.href.slice(window.location.href.indexOf('?score=')+7);

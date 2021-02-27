@@ -1,4 +1,3 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -19,7 +18,7 @@ export class PageHomePage implements OnInit {
   }
 
   goPlay() {
-    window.location.href = "/"+this.lang+"/play";
+    window.location.href = "/"+this.lang+"/levelSelect";
   }
 
   goToHowToPlay() {
@@ -34,13 +33,13 @@ export class PageHomePage implements OnInit {
   description() {
     switch (this.lang) {
       case "en":
-        return "A classic space shooter game."
+        return "A classic space shooter game"
         break;
       case "ca":
-        return "Un space shooter clàssic."
+        return "Un space shooter clàssic"
         break;
       case "es":
-        return "Un clasico space shooter."
+        return "Un clasico space shooter"
         break;
     }
   }

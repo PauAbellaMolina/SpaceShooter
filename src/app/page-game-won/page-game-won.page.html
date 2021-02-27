@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border ion-text-right ion-margin-top ion-margin-end">
-  <a href="/en/gameOver?score={{ this.score }}">EN</a>
-  <a href="/ca/gameOver?score={{ this.score }}">CA</a>
-  <a href="/es/gameOver?score={{ this.score }}">ES</a>
+  <a href="/en/gameWon?score={{ this.score }}">EN</a>
+  <a href="/ca/gameWon?score={{ this.score }}">CA</a>
+  <a href="/es/gameWon?score={{ this.score }}">ES</a>
 </ion-header>
 
 <ion-content>
@@ -9,7 +9,7 @@
     <ion-row>
       <ion-col size="12">
         <ion-row>
-          <h1 class="title">💀 GAME OVER 💀</h1>
+          <h1 class="title">🎉 GAME WON 🎉</h1>
         </ion-row>
         <ion-row>
           <p class="subtitle">{{ scoreTxt() }}: {{ this.score }}</p>

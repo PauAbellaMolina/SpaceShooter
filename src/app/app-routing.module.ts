@@ -56,6 +56,54 @@ const routes: Routes = [
     path: 'es/gameOver',
     loadChildren: () => import('./page-game-over/page-game-over.module').then( m => m.PageGameOverPageModule)
   },
+  {
+    path: 'ca/gameWon',
+    loadChildren: () => import('./page-game-won/page-game-won.module').then( m => m.PageGameWonPageModule)
+  },
+  {
+    path: 'en/gameWon',
+    loadChildren: () => import('./page-game-won/page-game-won.module').then( m => m.PageGameWonPageModule)
+  },
+  {
+    path: 'es/gameWon',
+    loadChildren: () => import('./page-game-won/page-game-won.module').then( m => m.PageGameWonPageModule)
+  },
+  {
+    path: 'ca/play2',
+    loadChildren: () => import('./page-game-lvl2/page-game-lvl2.module').then( m => m.PageGameLvl2PageModule)
+  },
+  {
+    path: 'en/play2',
+    loadChildren: () => import('./page-game-lvl2/page-game-lvl2.module').then( m => m.PageGameLvl2PageModule)
+  },
+  {
+    path: 'es/play2',
+    loadChildren: () => import('./page-game-lvl2/page-game-lvl2.module').then( m => m.PageGameLvl2PageModule)
+  },
+  {
+    path: 'ca/play3',
+    loadChildren: () => import('./page-game-lvl3/page-game-lvl3.module').then( m => m.PageGameLvl3PageModule)
+  },
+  {
+    path: 'en/play3',
+    loadChildren: () => import('./page-game-lvl3/page-game-lvl3.module').then( m => m.PageGameLvl3PageModule)
+  },
+  {
+    path: 'es/play3',
+    loadChildren: () => import('./page-game-lvl3/page-game-lvl3.module').then( m => m.PageGameLvl3PageModule)
+  },
+  {
+    path: 'ca/levelSelect',
+    loadChildren: () => import('./page-level-select/page-level-select.module').then( m => m.PageLevelSelectPageModule)
+  },
+  {
+    path: 'en/levelSelect',
+    loadChildren: () => import('./page-level-select/page-level-select.module').then( m => m.PageLevelSelectPageModule)
+  },
+  {
+    path: 'es/levelSelect',
+    loadChildren: () => import('./page-level-select/page-level-select.module').then( m => m.PageLevelSelectPageModule)
+  },
 ];
 
 @NgModule({
