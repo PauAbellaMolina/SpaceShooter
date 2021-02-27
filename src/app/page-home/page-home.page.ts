@@ -18,6 +18,10 @@ export class PageHomePage implements OnInit {
   ngOnInit() {
   }
 
+  goPlay() {
+    window.location.href = "/"+this.lang+"/play";
+  }
+
   goToHowToPlay() {
     window.location.href = "/"+this.lang+"/howToPlay";
   }

@@ -29,6 +29,9 @@ export default class FirstScene extends Phaser.Scene {
   lifeLabel: Phaser.GameObjects.Text;
   energyTxt: Phaser.GameObjects.Text;
   lifes: number = 10;
+  arrayHearts: Array<String> = ["❤️"];
+  gameOver: boolean = false;
+  lang: string;
 
   constructor(config) {
     super(config);
@@ -36,6 +39,10 @@ export default class FirstScene extends Phaser.Scene {
     //Velocitat de moviment de la ship
     this.shipVel = 15;
     this.energy = 100;
+
+    this.lang = location.pathname.replace('/', '').replace('/play', '');
+    if(this.lang == "")
+      window.location.href = "/en/play";
   }
 
   preload() {
@@ -96,23 +103,10 @@ export default class FirstScene extends Phaser.Scene {
       add: true
     });
 
-    // this.lifeLabel = this.make.text({
-    //   x: 20,
-    //   y: 60,
-    //   text: '❤️: ',
-    //   style: {
-    //     fontSize: '28px',
-    //     fontFamily: 'Rubik Mono One',
-    //     color: '#ffffff',
-    //     align: 'left',
-    //   },
-    //   add: true
-    // });
-
     this.lifeTxt = this.make.text({
       x: window.innerWidth/2 - 205,
       y: 40,
-      text: '❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️',
+      text: this.arrayHearts.toString().replace(/,/g, ""),
       style: {
         fontSize: '30px',
         fontFamily: 'Rubik Mono One',
@@ -173,9 +167,17 @@ export default class FirstScene extends Phaser.Scene {
 
     //Energy bar functionality
     this.energyBar.scaleY = this.energy/50;
-
-    this.scoreTxt.text = this.puntuation.toString();
     this.energyTxt.text = this.energy.toFixed(0).toString() + "%";
+
+    //Score count
+    this.scoreTxt.text = this.puntuation.toString();
+
+    //Lifes controll
+    if(this.gameOver == false && this.arrayHearts.length == 0) {
+      this.gameOver = true;
+      window.location.href = "/"+this.lang+"/gameOver?score="+this.scoreTxt.text;
+    }
+
   }
 
   //----------METODES-----------
@@ -242,8 +244,9 @@ export default class FirstScene extends Phaser.Scene {
               // arrayEnemiesBase.splice(arrayEnemiesBase.indexOf(elementEnemy), 1);
               // elementEnemy.arrayBullets.splice(elementEnemy.arrayBullets.indexOf(elementBullet), 1);
               console.log("Hitted");
-              // console.log(this.lifeTxt.text.toString().slice(0, -1));
-              this.lifeTxt.text = this.lifeTxt.toString().slice(0, -1);
+
+              this.arrayHearts.pop();
+              this.lifeTxt.text = this.arrayHearts.toString().replace(/,/g, "");
             }
           }
         }

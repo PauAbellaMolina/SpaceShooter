@@ -21,7 +21,15 @@ const routes: Routes = [
     loadChildren: () => import('./page-home/page-home.module').then( m => m.PageHomePageModule)
   },
   {
-    path: 'play',
+    path: 'ca/play',
+    loadChildren: () => import('./page-game-lvl1/page-game-lvl1.module').then( m => m.PageGameLvl1PageModule)
+  },
+  {
+    path: 'en/play',
+    loadChildren: () => import('./page-game-lvl1/page-game-lvl1.module').then( m => m.PageGameLvl1PageModule)
+  },
+  {
+    path: 'es/play',
     loadChildren: () => import('./page-game-lvl1/page-game-lvl1.module').then( m => m.PageGameLvl1PageModule)
   },
   {
@@ -35,6 +43,18 @@ const routes: Routes = [
   {
     path: 'es/howToPlay',
     loadChildren: () => import('./page-how-to-play/page-how-to-play.module').then( m => m.PageHowToPlayPageModule)
+  },
+  {
+    path: 'ca/gameOver',
+    loadChildren: () => import('./page-game-over/page-game-over.module').then( m => m.PageGameOverPageModule)
+  },
+  {
+    path: 'en/gameOver',
+    loadChildren: () => import('./page-game-over/page-game-over.module').then( m => m.PageGameOverPageModule)
+  },
+  {
+    path: 'es/gameOver',
+    loadChildren: () => import('./page-game-over/page-game-over.module').then( m => m.PageGameOverPageModule)
   },
 ];
 
