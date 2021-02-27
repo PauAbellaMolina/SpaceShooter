@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border ion-text-right ion-margin-top ion-margin-end">
+  <a href="/en">EN</a>
+  <a href="/ca">CA</a>
+  <a href="/es">ES</a>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col size="12">
+        <ion-row>
+          <h1 class="title">{{ title() }}</h1>
+        </ion-row>
+        <ion-row>
+          <p>{{ description() }}<br> {{ subDescription() }}</p>
+        </ion-row>
+        <ion-row>
+          <button class="subtitle homeBtn" [routerLink]="['/play']">{{ play() }}</button>
+        </ion-row>
+        <ion-row>
+          <button class="subtitle homeBtn" (click)="goToHowToPlay()">{{ howToPlay() }}</button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

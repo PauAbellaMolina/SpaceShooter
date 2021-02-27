@@ -1,9 +1,12 @@
+import { Bullet } from "../Classes/Bullet";
+import { EnemyBase } from "../Classes/EnemyBase";
+
 export default class FirstScene extends Phaser.Scene {
   ship: Phaser.GameObjects.Sprite;
   bullet: Phaser.GameObjects.Sprite;
   enemyBase: Phaser.GameObjects.Sprite;
   fireButton: Phaser.Input.Keyboard.Key;
-  bulletTime: number;
+  bulletTime: number = 0;
   fireButtonTouch: Phaser.Input.Pointer;
   movementPointer: Phaser.Input.Pointer;
   wKey: Phaser.Input.Keyboard.Key;
@@ -19,6 +22,9 @@ export default class FirstScene extends Phaser.Scene {
   // enemyBaseObject2: EnemyBase;
   energyBar: Phaser.GameObjects.Sprite;
   puntuation: number = 0;
+  scoreTxt: Phaser.GameObjects.Text;
+  scoreLabel: Phaser.GameObjects.Text;
+  energyTxt: Phaser.GameObjects.Text;
 
   constructor(config) {
     super(config);
@@ -32,6 +38,7 @@ export default class FirstScene extends Phaser.Scene {
     //Load assets
     this.load.image('ship', 'assets/ship.png');
     this.load.image('bullet', 'assets/bullet.png');
+    this.load.image('bulletEnemyBase', 'assets/bulletEnemyBase.png');
     this.load.image('enemyBase', 'assets/enemyBase.png');
     this.load.image('energyBar', 'assets/energyBar.png');
   }
@@ -50,29 +57,61 @@ export default class FirstScene extends Phaser.Scene {
     // this.movementPointer = this.input.pointer1;
     this.fireButtonTouch = this.input.pointer2;
 
-    this.bulletTime = 0;
-
     //Add assets
-    this.ship = this.make.sprite({ x: window.innerWidth/2, y: window.innerHeight/2, key: 'ship', scale: { x: .2, y: .2 } });
+    this.ship = this.make.sprite({ x: window.innerWidth/2, y: window.innerHeight/2, key: 'ship', scale: { x: .13, y: .13 } });
     this.energyBar = this.make.sprite({ x: 30, y: window.innerHeight/2, key: 'energyBar', scale: { x: 1, y: 1 } });
-    // this.enemyBase = this.make.sprite({ x: window.innerWidth/2, y: 300, key: 'enemyBase', scale: { x: .2, y: .2 } });
-    // this.enemyBaseObject1 = new EnemyBase(this, window.innerWidth/4, 300, 'enemyBase');
-    // this.enemyBaseObject2 = new EnemyBase(this, window.innerWidth/2, 300, 'enemyBase');
 
+    //Array of base enemy objects
     this.arrayEnemiesBase = [new EnemyBase(this, 0, 0, 'enemyBase'),
                               new EnemyBase(this, 0, window.innerHeight, 'enemyBase'),
                               new EnemyBase(this, window.innerWidth, 0, 'enemyBase'),
                               new EnemyBase(this, window.innerWidth, window.innerHeight, 'enemyBase')];
 
-    // this.arrayEnemiesBase.push(this.enemyBaseObject1);
-    // this.arrayEnemiesBase.push(this.enemyBaseObject2);
+    this.scoreLabel = this.make.text({
+      x: 20,
+      y: 20,
+      text: 'Score: ',
+      style: {
+        fontSize: '28px',
+        fontFamily: 'Rubik Mono One',
+        color: '#ffffff',
+        align: 'left',
+      },
+      add: true
+    });
+
+    this.scoreTxt = this.make.text({
+      x: 170,
+      y: 19,
+      text: '0',
+      style: {
+        fontSize: '30px',
+        fontFamily: 'Rubik Mono One',
+        color: '#ffffff',
+        align: 'left',
+      },
+      add: true
+    });
+
+    this.energyTxt = this.make.text({
+      x: 46,
+      y: window.innerHeight/2 - 14,
+      text: '0',
+      style: {
+        fontSize: '20px',
+        fontFamily: 'Arial',
+        color: '#6E29DE',
+        align: 'left',
+      },
+      add: true
+    });
   }
 
   update() {
     //Logic run every 16ms
     if (this.input.pointer1.active) {
       this.ship.x = this.input.pointer1.x;
-      this.ship.y = this.input.pointer1.y - 50;
+      this.ship.y = this.input.pointer1.y - 30;
     }
 
     if (this.wKey.isDown && this.ship.y > 0) {
@@ -97,12 +136,17 @@ export default class FirstScene extends Phaser.Scene {
 
     //Cada pas de loop comprovem si alguna bala dona a l'enemic
     this.checkhit(this.arrayEnemiesBase, this.arrayBullets);
+    this.checkhitShip(this.ship, this.arrayEnemiesBase);
 
     //Recover energy slowly
     if(this.energy < 100)
       this.energy += 0.05;
 
+    //Energy bar functionality
     this.energyBar.scaleY = this.energy/50;
+
+    this.scoreTxt.text = this.puntuation.toString();
+    this.energyTxt.text = this.energy.toFixed(0).toString() + "%";
   }
 
   //----------METODES-----------
@@ -118,7 +162,7 @@ export default class FirstScene extends Phaser.Scene {
         this.bulletTime = this.time.now + 120;
       }
 
-      this.bulletObject = new Bullet(this, this.ship.x, this.ship.y-60, 'bullet', this.enemyBase);
+      this.bulletObject = new Bullet(this, this.ship.x, this.ship.y-60, 'bullet', 25, false);
       this.arrayBullets.push(this.bulletObject);
 
       //Looses energy on every shoot
@@ -135,7 +179,7 @@ export default class FirstScene extends Phaser.Scene {
     arrayBullets.forEach(elementBullet => {
       arrayEnemiesBase.forEach(elementEnemy => {
         if(this.hit(elementBullet, elementEnemy)) {
-          //If bullet hit enemy, destroy the both
+          //If bullet hit enemy, destroy both
           elementEnemy.destroy();
           elementBullet.destroy();
 
@@ -147,7 +191,6 @@ export default class FirstScene extends Phaser.Scene {
           }
 
           this.puntuation += 1;
-          console.log(this.puntuation);
 
           arrayEnemiesBase.splice(arrayEnemiesBase.indexOf(elementEnemy), 1);
           arrayBullets.splice(arrayBullets.indexOf(elementBullet), 1);
@@ -156,7 +199,24 @@ export default class FirstScene extends Phaser.Scene {
     });
   }
 
-  hit(a: Bullet, b: EnemyBase) {
+  checkhitShip(ship: Phaser.GameObjects.Sprite, arrayEnemiesBase: Array<EnemyBase>) {
+    arrayEnemiesBase.forEach(elementEnemy => {
+      elementEnemy.arrayBullets.forEach(elementBullet => {
+        if(elementBullet != null) {
+          if(this.hit(elementBullet, ship)) {
+            //If bullet hit enemy, destroy the bullet
+            elementBullet.destroy();
+
+            // arrayEnemiesBase.splice(arrayEnemiesBase.indexOf(elementEnemy), 1);
+            elementEnemy.arrayBullets.splice(elementEnemy.arrayBullets.indexOf(elementBullet), 1);
+            console.log("Hitted");
+          }
+        }
+      });
+    });
+  }
+
+  hit(a: Bullet, b: any) {
     let bool = false;
 
     //Col·lisions horitzontals
@@ -179,87 +239,4 @@ export default class FirstScene extends Phaser.Scene {
     return bool;
   }
 
-}
-
-
-//-----------CLASSES-------------
-
-class Bullet extends Phaser.GameObjects.Sprite {
-  enemyBase: Phaser.GameObjects.Sprite;
-
-  constructor(scene, x, y, bullet, enemyBase) {
-    super(scene, x, y, bullet);
-
-    this.enemyBase = enemyBase;
-
-    scene.add.existing(this);
-  }
-
-  update() {
-    if(this.y > -50) { //Si esta dins del canvas tot ok, sino la eliminem
-      this.y -= 25; //Velocitat de la bullet
-    } else {
-      this.destroy();
-    }
-  }
-
-  preUpdate () {
-    this.update(); //No se del tot que fa, pero sense aixo, l'update no tira
-  }
-}
-
-class EnemyBase extends Phaser.GameObjects.Sprite {
-  axis: number;
-  enemyVelY: number;
-  enemyVelX: number;
-  axisX: number;
-  axisY: number;
-
-  constructor(scene, x, y, enemyBase) {
-    super(scene, x, y, enemyBase);
-
-    //0 = abaix
-    //1 = right
-    //2 = amunt
-    //3 = left
-    this.axis = 0;
-
-    this.enemyVelY = 7;
-    this.enemyVelX = 13;
-
-    this.axisX = Math.floor(Math.random() * (2 - 0)) + 0;
-    this.axisY = Math.floor(Math.random() * (2 - 0)) + 0;
-
-    scene.add.existing(this);
-  }
-
-  update() {
-
-    if(this.x < 0 || this.x > window.innerWidth) {
-      if (this.axisX == 0) { this.axisX = 1; } else { this.axisX = 0; }
-      this.axisY = Math.floor(Math.random() * (2 - 0)) + 0;
-    }
-
-    if(this.y < 0 || this.y > window.innerHeight) {
-      if (this.axisY == 0) { this.axisY = 1; } else { this.axisY = 0; }
-      this.axisX = Math.floor(Math.random() * (2 - 0)) + 0;
-    }
-
-    if (this.axisX == 0) {
-      this.x -= this.enemyVelX;
-    } else if (this.axisX == 1) {
-      this.x += this.enemyVelX;
-    }
-
-    if (this.axisY == 0) {
-      this.y -= this.enemyVelY;
-    } else if (this.axisY == 1) {
-      this.y += this.enemyVelY;
-    }
-
-  }
-
-  preUpdate () {
-    this.update(); //No se del tot que fa, pero sense aixo, l'update no tira
-  }
 }
