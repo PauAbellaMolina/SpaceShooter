@@ -59,6 +59,10 @@ export class EnemyBase extends Phaser.GameObjects.Sprite {
 
   }
 
+  destroyHittedBullet(elementBullet: Bullet) {
+    this.arrayBullets.splice(this.arrayBullets.indexOf(elementBullet), 1);
+  }
+
   preUpdate () {
     this.update(); //No se del tot que fa, pero sense aixo, l'update no tira
   }

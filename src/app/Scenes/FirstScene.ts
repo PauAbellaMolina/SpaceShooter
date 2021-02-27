@@ -7,6 +7,7 @@ export default class FirstScene extends Phaser.Scene {
   enemyBase: Phaser.GameObjects.Sprite;
   fireButton: Phaser.Input.Keyboard.Key;
   bulletTime: number = 0;
+  hitTime: number = 0;
   fireButtonTouch: Phaser.Input.Pointer;
   movementPointer: Phaser.Input.Pointer;
   wKey: Phaser.Input.Keyboard.Key;
@@ -24,7 +25,10 @@ export default class FirstScene extends Phaser.Scene {
   puntuation: number = 0;
   scoreTxt: Phaser.GameObjects.Text;
   scoreLabel: Phaser.GameObjects.Text;
+  lifeTxt: Phaser.GameObjects.Text;
+  lifeLabel: Phaser.GameObjects.Text;
   energyTxt: Phaser.GameObjects.Text;
+  lifes: number = 10;
 
   constructor(config) {
     super(config);
@@ -79,7 +83,6 @@ export default class FirstScene extends Phaser.Scene {
       },
       add: true
     });
-
     this.scoreTxt = this.make.text({
       x: 170,
       y: 19,
@@ -89,6 +92,32 @@ export default class FirstScene extends Phaser.Scene {
         fontFamily: 'Rubik Mono One',
         color: '#ffffff',
         align: 'left',
+      },
+      add: true
+    });
+
+    // this.lifeLabel = this.make.text({
+    //   x: 20,
+    //   y: 60,
+    //   text: '❤️: ',
+    //   style: {
+    //     fontSize: '28px',
+    //     fontFamily: 'Rubik Mono One',
+    //     color: '#ffffff',
+    //     align: 'left',
+    //   },
+    //   add: true
+    // });
+
+    this.lifeTxt = this.make.text({
+      x: window.innerWidth/2 - 205,
+      y: 40,
+      text: '❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️',
+      style: {
+        fontSize: '30px',
+        fontFamily: 'Rubik Mono One',
+        color: '#ffffff',
+        align: 'center',
       },
       add: true
     });
@@ -203,13 +232,19 @@ export default class FirstScene extends Phaser.Scene {
     arrayEnemiesBase.forEach(elementEnemy => {
       elementEnemy.arrayBullets.forEach(elementBullet => {
         if(elementBullet != null) {
-          if(this.hit(elementBullet, ship)) {
-            //If bullet hit enemy, destroy the bullet
-            elementBullet.destroy();
+          if (this.time.now > this.hitTime) {
+            if(this.hit(elementBullet, ship)) {
+              this.hitTime = this.time.now + 120;
+              elementEnemy.destroyHittedBullet(elementBullet);
+              //If bullet hit enemy, destroy the bullet
+              elementBullet.alpha = 0;
 
-            // arrayEnemiesBase.splice(arrayEnemiesBase.indexOf(elementEnemy), 1);
-            elementEnemy.arrayBullets.splice(elementEnemy.arrayBullets.indexOf(elementBullet), 1);
-            console.log("Hitted");
+              // arrayEnemiesBase.splice(arrayEnemiesBase.indexOf(elementEnemy), 1);
+              // elementEnemy.arrayBullets.splice(elementEnemy.arrayBullets.indexOf(elementBullet), 1);
+              console.log("Hitted");
+              // console.log(this.lifeTxt.text.toString().slice(0, -1));
+              this.lifeTxt.text = this.lifeTxt.toString().slice(0, -1);
+            }
           }
         }
       });
