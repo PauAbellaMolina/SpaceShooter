@@ -1,0 +1,35 @@
+<ion-header class="ion-no-border ion-text-right ion-margin-top ion-margin-end">
+  <a href="/en/howToPlay">EN</a>
+  <a href="/ca/howToPlay">CA</a>
+  <a href="/es/howToPlay">ES</a>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col size="12">
+        <ion-row>
+          <h1 class="title">{{ title() }}</h1>
+        </ion-row>
+        <ion-row>
+          <p>> {{ movement() }}</p>
+        </ion-row>
+        <ion-row>
+          <p>> {{ shooting() }}</p>
+        </ion-row>
+        <ion-row>
+          <p>> {{ shootingAux() }}</p>
+        </ion-row>
+        <ion-row>
+          <p>> {{ energy() }}</p>
+        </ion-row>
+        <ion-row>
+          <button class="subtitle homeBtn" [routerLink]="['/play']">{{ play() }}</button>
+        </ion-row>
+        <ion-row>
+          <button class="subtitle homeBtn" (click)="goHome()"><-{{ back() }}</button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

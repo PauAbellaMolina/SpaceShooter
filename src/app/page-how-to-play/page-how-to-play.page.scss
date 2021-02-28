@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+
+ion-grid{
+  height: 100%;
+}
+ion-row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+* {
+  font-family: 'Rubik Mono One', sans-serif;
+  color: #9D86E9 !important;
+}
+
+.title {
+  font-size: 4vw;
+  font-weight: bold;
+  text-shadow: 0.05em 0.055em 0px #EDC988;
+}
+
+.subtitle {
+  width: 50%;
+  font-size: 1.5vw;
+}
+
+.homeBtn {
+  width: 20%;
+  margin-top: 1em;
+  height: 2em;
+  border: none;
+  border-radius: 10px;
+  background-color: #7149c0 !important;
+  color: #EDC988 !important;
+}
+
+ion-header a {
+  padding: 0 1em 0 0;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .title {
+    font-size: 8vw;
+  }
+
+  .subtitle {
+    width: 100%;
+    font-size: 5vw;
+  }
+
+  .homeBtn {
+    width: 50%;
+  }
+
+  p {
+    font-size: 2.5vw;
+  }
+}

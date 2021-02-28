@@ -1,7 +1,7 @@
 import { Bullet } from "../Classes/Bullet";
 import { EnemyBase } from "../Classes/EnemyBase";
 
-export default class FirstScene extends Phaser.Scene {
+export default class SecondScene extends Phaser.Scene {
   ship: Phaser.GameObjects.Sprite;
   bullet: Phaser.GameObjects.Sprite;
   enemyBase: Phaser.GameObjects.Sprite;
@@ -27,7 +27,7 @@ export default class FirstScene extends Phaser.Scene {
   lifeLabel: Phaser.GameObjects.Text;
   energyTxt: Phaser.GameObjects.Text;
   lifes: number = 10;
-  arrayHearts: Array<String> = ["❤️","❤️","❤️","❤️","❤️",];
+  arrayHearts: Array<String> = ["❤️","❤️","❤️"];
   gameEnded: boolean = false;
   lang: string;
 
@@ -38,9 +38,9 @@ export default class FirstScene extends Phaser.Scene {
     this.shipVel = 15;
     this.energy = 100;
 
-    this.lang = location.pathname.replace('/', '').replace('/play', '');
+    this.lang = location.pathname.replace('/', '').replace('/play2', '');
     if(this.lang == "")
-      window.location.href = "/en/play";
+      window.location.href = "/en/play2";
   }
 
   preload() {
@@ -71,10 +71,14 @@ export default class FirstScene extends Phaser.Scene {
     this.energyBar = this.make.sprite({ x: 30, y: window.innerHeight/2, key: 'energyBar', scale: { x: 1, y: 1 } });
 
     //Array of base enemy objects
-    this.arrayEnemiesBase = [new EnemyBase(this, 20, 20, 'enemyBase', 8),
-                              new EnemyBase(this, 20, window.innerHeight-20, 'enemyBase', 8),
-                              new EnemyBase(this, window.innerWidth-20, 20, 'enemyBase', 8),
-                              new EnemyBase(this, window.innerWidth-20, window.innerHeight-20, 'enemyBase', 8),
+    this.arrayEnemiesBase = [new EnemyBase(this, 20, 20, 'enemyBase', 12),
+                              new EnemyBase(this, 20, window.innerHeight-20, 'enemyBase', 12),
+                              new EnemyBase(this, window.innerWidth-20, 20, 'enemyBase', 12),
+                              new EnemyBase(this, window.innerWidth-20, window.innerHeight-20, 'enemyBase', 12),
+                              new EnemyBase(this, 30, 30, 'enemyBase', 12),
+                              new EnemyBase(this, 30, window.innerHeight-30, 'enemyBase', 12),
+                              new EnemyBase(this, window.innerWidth-30, 30, 'enemyBase', 12),
+                              new EnemyBase(this, window.innerWidth-30, window.innerHeight-30, 'enemyBase', 12),
                             ];
 
     this.scoreLabel = this.make.text({
