@@ -2,7 +2,7 @@
 
 I created a classic and simple Space Shooter for my M9 module project.
 
-I used [Ionic](https://ionicframework.com) for [Angular](https://angular.io) (and [Capacitor](https://capacitorjs.com/)) alongside a framework specifically build for Javascript/Typescript games called Phaser.
+I used [Ionic](https://ionicframework.com) for [Angular](https://angular.io) (and [Capacitor](https://capacitorjs.com/)) alongside a framework specifically build for Javascript/Typescript games called [Phaser](https://phaser.io/).
 
 Using Ionic for this project gave me two huge advantages:
 - Making the game cross platform, meaning you can both play it on the web, or you can install it as an app on Android (which is cool).
