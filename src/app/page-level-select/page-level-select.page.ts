@@ -11,8 +11,8 @@ export class PageLevelSelectPage implements OnInit {
 
   constructor() {
     this.lang = location.pathname.replace('/', '').replace('/levelSelect', '');
-    if(this.lang == "")
-      window.location.href = "/en/levelSelect";
+    // if(this.lang == "")
+    //   window.location.href = "/en/levelSelect";
   }
 
   ngOnInit() {
