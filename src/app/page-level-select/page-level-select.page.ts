@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-level-select',
@@ -8,27 +9,40 @@ import { Component, OnInit } from '@angular/core';
 export class PageLevelSelectPage implements OnInit {
 
   lang: string;
+  test: string;
 
-  constructor() {
+  constructor(private router: Router) {
     this.lang = location.pathname.replace('/', '').replace('/levelSelect', '');
+    if (this.lang != 'es' && this.lang != 'en' && this.lang != 'ca')
+      this.lang = '';
     // if(this.lang == "")
     //   window.location.href = "/en/levelSelect";
+
+    console.log(this.lang);
   }
 
   ngOnInit() {
   }
 
   goLevel1() {
-    window.location.href = "/"+this.lang+"/play";
+    // window.location.href = "/"+this.lang+"/play";
+    this.test = this.lang + "/play";
+    this.router.navigate([this.test]);
   }
   goLevel2() {
-    window.location.href = "/"+this.lang+"/play2";
+    // window.location.href = "/"+this.lang+"/play2";
+    this.test = "/" + this.lang + "/play2";
+    this.router.navigate([this.test]);
   }
   goLevel3() {
-    window.location.href = "/"+this.lang+"/play3";
+    // window.location.href = "/"+this.lang+"/play3";
+    this.test = "/" + this.lang + "/play3";
+    this.router.navigate([this.test]);
   }
   goHome() {
-    window.location.href = "/"+this.lang;
+    // window.location.href = "/"+this.lang;
+    this.test = "/" + this.lang;
+    this.router.navigate([this.test]);
   }
 
   //Translations of the homepage texts
@@ -38,6 +52,9 @@ export class PageLevelSelectPage implements OnInit {
 
   description() {
     switch (this.lang) {
+      default:
+        return "Select the dificulty"
+        break;
       case "en":
         return "Select the dificulty"
         break;
@@ -52,6 +69,9 @@ export class PageLevelSelectPage implements OnInit {
 
   level1() {
     switch (this.lang) {
+      default:
+        return "Easy"
+        break;
       case "en":
         return "Easy"
         break;
@@ -66,6 +86,9 @@ export class PageLevelSelectPage implements OnInit {
 
   level2() {
     switch (this.lang) {
+      default:
+        return "Normal"
+        break;
       case "en":
         return "Normal"
         break;
@@ -80,6 +103,9 @@ export class PageLevelSelectPage implements OnInit {
 
   level3() {
     switch (this.lang) {
+      default:
+        return "Inhuman"
+        break;
       case "en":
         return "Inhuman"
         break;
@@ -94,6 +120,9 @@ export class PageLevelSelectPage implements OnInit {
 
   back() {
     switch (this.lang) {
+      default:
+        return "Back"
+        break;
       case "en":
         return "Back"
         break;

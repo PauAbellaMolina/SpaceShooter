@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border ion-text-right ion-margin-top ion-margin-end">
-  <a href="/en">EN</a>
-  <a href="/ca">CA</a>
-  <a href="/es">ES</a>
+  <a [routerLink]="['']">EN</a>
+  <a [routerLink]="['ca']">CA</a>
+  <a [routerLink]="['es']">ES</a>
 </ion-header>
 
 <ion-content>
@@ -15,8 +15,8 @@
           <p>{{ description() }}<br> {{ subDescription() }}</p>
         </ion-row>
         <ion-row>
-          <!-- <button class="subtitle homeBtn" (click)="goPlay()">{{ play() }}</button> -->
-          <button class="subtitle homeBtn" [routerLink]="['ca/levelSelect']">{{ play() }}</button>
+          <button class="subtitle homeBtn" (click)="goPlay()">{{ play() }}</button>
+          <!-- <button class="subtitle homeBtn" [routerLink]="['ca/levelSelect']">{{ play() }}</button> -->
         </ion-row>
         <ion-row>
           <button class="subtitle homeBtn" (click)="goToHowToPlay()">{{ howToPlay() }}</button>

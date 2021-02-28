@@ -21,6 +21,10 @@ const routes: Routes = [
     loadChildren: () => import('./page-home/page-home.module').then( m => m.PageHomePageModule)
   },
   {
+    path: 'play',
+    loadChildren: () => import('./page-game-lvl1/page-game-lvl1.module').then( m => m.PageGameLvl1PageModule)
+  },
+  {
     path: 'ca/play',
     loadChildren: () => import('./page-game-lvl1/page-game-lvl1.module').then( m => m.PageGameLvl1PageModule)
   },
@@ -31,6 +35,10 @@ const routes: Routes = [
   {
     path: 'es/play',
     loadChildren: () => import('./page-game-lvl1/page-game-lvl1.module').then( m => m.PageGameLvl1PageModule)
+  },
+  {
+    path: 'howToPlay',
+    loadChildren: () => import('./page-how-to-play/page-how-to-play.module').then( m => m.PageHowToPlayPageModule)
   },
   {
     path: 'ca/howToPlay',
@@ -69,6 +77,10 @@ const routes: Routes = [
     loadChildren: () => import('./page-game-won/page-game-won.module').then( m => m.PageGameWonPageModule)
   },
   {
+    path: 'play2',
+    loadChildren: () => import('./page-game-lvl2/page-game-lvl2.module').then( m => m.PageGameLvl2PageModule)
+  },
+  {
     path: 'ca/play2',
     loadChildren: () => import('./page-game-lvl2/page-game-lvl2.module').then( m => m.PageGameLvl2PageModule)
   },
@@ -81,6 +93,10 @@ const routes: Routes = [
     loadChildren: () => import('./page-game-lvl2/page-game-lvl2.module').then( m => m.PageGameLvl2PageModule)
   },
   {
+    path: 'play3',
+    loadChildren: () => import('./page-game-lvl3/page-game-lvl3.module').then( m => m.PageGameLvl3PageModule)
+  },
+  {
     path: 'ca/play3',
     loadChildren: () => import('./page-game-lvl3/page-game-lvl3.module').then( m => m.PageGameLvl3PageModule)
   },
@@ -91,6 +107,10 @@ const routes: Routes = [
   {
     path: 'es/play3',
     loadChildren: () => import('./page-game-lvl3/page-game-lvl3.module').then( m => m.PageGameLvl3PageModule)
+  },
+  {
+    path: 'levelSelect',
+    loadChildren: () => import('./page-level-select/page-level-select.module').then( m => m.PageLevelSelectPageModule)
   },
   {
     path: 'ca/levelSelect',

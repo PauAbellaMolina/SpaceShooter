@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-home',
@@ -7,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageHomePage implements OnInit {
   lang: string;
+  test: string;
+  // router: Router;
 
-  constructor() {
+  constructor(private router: Router) {
     this.lang = location.pathname.replace('/', '');
     //if(this.lang == "")
       //window.location.href = "/en";
@@ -18,11 +21,15 @@ export class PageHomePage implements OnInit {
   }
 
   goPlay() {
-    window.location.href = "/"+this.lang+"/levelSelect";
+    // window.location.href = "/"+this.lang+"/levelSelect";
+    this.test = this.lang + "/levelSelect";
+    this.router.navigate([this.test]);
   }
 
   goToHowToPlay() {
-    window.location.href = "/"+this.lang+"/howToPlay";
+    // window.location.href = "/"+this.lang+"/howToPlay";
+    this.test = this.lang + "/howToPlay";
+    this.router.navigate([this.test]);
   }
 
   //Translations of the homepage texts
@@ -32,6 +39,9 @@ export class PageHomePage implements OnInit {
 
   description() {
     switch (this.lang) {
+      case "":
+        return "A classic space shooter game"
+        break;
       case "en":
         return "A classic space shooter game"
         break;
@@ -46,6 +56,9 @@ export class PageHomePage implements OnInit {
 
   subDescription() {
     switch (this.lang) {
+      case "":
+        return "Hit PLAY and have fun!"
+        break;
       case "en":
         return "Hit PLAY and have fun!"
         break;
@@ -60,6 +73,9 @@ export class PageHomePage implements OnInit {
 
   play() {
     switch (this.lang) {
+      case "":
+        return "play"
+        break;
       case "en":
         return "play"
         break;
@@ -74,6 +90,9 @@ export class PageHomePage implements OnInit {
 
   howToPlay() {
     switch (this.lang) {
+      case "":
+        return "How to play"
+        break;
       case "en":
         return "How to play"
         break;

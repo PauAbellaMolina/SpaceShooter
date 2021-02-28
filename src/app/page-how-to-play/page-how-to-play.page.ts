@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-how-to-play',
@@ -7,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageHowToPlayPage implements OnInit {
   lang: string;
+  test: string;
 
-  constructor() {
+  constructor(private router: Router) {
     this.lang = location.pathname.replace('/', '').replace('/howToPlay', '');
-    if(this.lang == "")
-      window.location.href = "/en/howToPlay";
+    if (this.lang != 'es' && this.lang != 'en' && this.lang != 'ca')
+      this.lang = '';
+    // if(this.lang == "")
+    //   window.location.href = "/en/howToPlay";
   }
 
   ngOnInit() {
@@ -19,6 +23,9 @@ export class PageHowToPlayPage implements OnInit {
 
   title() {
     switch (this.lang) {
+      default:
+        return "How To Play"
+        break;
       case "en":
         return "How To Play"
         break;
@@ -33,6 +40,9 @@ export class PageHowToPlayPage implements OnInit {
 
   movement() {
     switch (this.lang) {
+      default:
+        return "Use WASD or touch the screen to move around"
+        break;
       case "en":
         return "Use WASD or touch the screen to move around"
         break;
@@ -46,6 +56,9 @@ export class PageHowToPlayPage implements OnInit {
   }
   shooting() {
     switch (this.lang) {
+      default:
+        return "Use SPACE or tap with another finger to shoot"
+        break;
       case "en":
         return "Use SPACE or tap with another finger to shoot"
         break;
@@ -59,6 +72,9 @@ export class PageHowToPlayPage implements OnInit {
   }
   shootingAux() {
     switch (this.lang) {
+      default:
+        return "Hold SPACE to shoot repeatedly or SPAM it to shoot faster"
+        break;
       case "en":
         return "Hold SPACE to shoot repeatedly or SPAM it to shoot faster"
         break;
@@ -72,6 +88,9 @@ export class PageHowToPlayPage implements OnInit {
   }
   energy() {
     switch (this.lang) {
+      default:
+        return "Every bullet costs you 10% of energy. Every kill restores 10%"
+        break;
       case "en":
         return "Every bullet costs you 10% of energy. Every kill restores 10%"
         break;
@@ -86,6 +105,9 @@ export class PageHowToPlayPage implements OnInit {
 
   play() {
     switch (this.lang) {
+      default:
+        return "play"
+        break;
       case "en":
         return "play"
         break;
@@ -99,11 +121,16 @@ export class PageHowToPlayPage implements OnInit {
   }
 
   goHome() {
-    window.location.href = "/"+this.lang;
+    // window.location.href = "/"+this.lang;
+    this.test = "/" + this.lang;
+    this.router.navigate([this.test]);
   }
 
   back() {
     switch (this.lang) {
+      default:
+        return "Back"
+        break;
       case "en":
         return "Back"
         break;
