@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class PageHowToPlayPage implements OnInit {
   lang: string;
-  test: string;
+  routeBuilder: string;
 
   constructor(private router: Router) {
     this.lang = location.pathname.replace('/', '').replace('/howToPlay', '');
@@ -122,8 +122,8 @@ export class PageHowToPlayPage implements OnInit {
 
   goHome() {
     // window.location.href = "/"+this.lang;
-    this.test = "/" + this.lang;
-    this.router.navigate([this.test]);
+    this.routeBuilder = "/" + this.lang;
+    this.router.navigate([this.routeBuilder]);
   }
 
   back() {

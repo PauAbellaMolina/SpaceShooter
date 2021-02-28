@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class PageLevelSelectPage implements OnInit {
 
   lang: string;
-  test: string;
+  routeBuilder: string;
 
   constructor(private router: Router) {
     this.lang = location.pathname.replace('/', '').replace('/levelSelect', '');
@@ -26,23 +26,23 @@ export class PageLevelSelectPage implements OnInit {
 
   goLevel1() {
     // window.location.href = "/"+this.lang+"/play";
-    this.test = this.lang + "/play";
-    this.router.navigate([this.test]);
+    this.routeBuilder = this.lang + "/play";
+    this.router.navigate([this.routeBuilder]);
   }
   goLevel2() {
     // window.location.href = "/"+this.lang+"/play2";
-    this.test = "/" + this.lang + "/play2";
-    this.router.navigate([this.test]);
+    this.routeBuilder = "/" + this.lang + "/play2";
+    this.router.navigate([this.routeBuilder]);
   }
   goLevel3() {
     // window.location.href = "/"+this.lang+"/play3";
-    this.test = "/" + this.lang + "/play3";
-    this.router.navigate([this.test]);
+    this.routeBuilder = "/" + this.lang + "/play3";
+    this.router.navigate([this.routeBuilder]);
   }
   goHome() {
     // window.location.href = "/"+this.lang;
-    this.test = "/" + this.lang;
-    this.router.navigate([this.test]);
+    this.routeBuilder = "/" + this.lang;
+    this.router.navigate([this.routeBuilder]);
   }
 
   //Translations of the homepage texts

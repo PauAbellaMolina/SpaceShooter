@@ -39,8 +39,8 @@ export default class SecondScene extends Phaser.Scene {
     this.energy = 100;
 
     this.lang = location.pathname.replace('/', '').replace('/play2', '');
-    if(this.lang == "")
-      window.location.href = "/en/play2";
+    if (this.lang != 'es' && this.lang != 'en' && this.lang != 'ca')
+      this.lang = 'en';
   }
 
   preload() {
@@ -178,12 +178,13 @@ export default class SecondScene extends Phaser.Scene {
     //Lifes controll
     if(this.gameEnded == false && this.arrayHearts.length == 0) {
       this.gameEnded = true;
-      window.location.href = "/"+this.lang+"/gameOver?score="+this.scoreTxt.text;
+      window.location.href = "https://pauabella.dev/PlaySpaceShooter/"+this.lang+"/gameOver/?score="+this.scoreTxt.text;
     }
 
     if(this.gameEnded == false && this.arrayEnemiesBase.length == 0) {
       this.gameEnded = true;
-      window.location.href = "/"+this.lang+"/gameWon?score="+this.scoreTxt.text;
+      // window.location.href = "/"+this.lang+"/gameWon?score="+this.scoreTxt.text;
+      window.location.href = "https://pauabella.dev/PlaySpaceShooter/"+this.lang+"/gameWon/?score="+this.scoreTxt.text;
     }
 
   }

@@ -27,9 +27,10 @@ export default class FirstScene extends Phaser.Scene {
   lifeLabel: Phaser.GameObjects.Text;
   energyTxt: Phaser.GameObjects.Text;
   lifes: number = 10;
-  arrayHearts: Array<String> = ["❤️","❤️","❤️","❤️","❤️",];
+  arrayHearts: Array<String> = ["❤️","❤️","❤️","❤️","❤️"];
   gameEnded: boolean = false;
   lang: string;
+  routeBuilder: string;
 
   constructor(config) {
     super(config);
@@ -39,8 +40,10 @@ export default class FirstScene extends Phaser.Scene {
     this.energy = 100;
 
     this.lang = location.pathname.replace('/', '').replace('/play', '');
-    if(this.lang == "")
-      window.location.href = "/en/play";
+    if (this.lang != 'es' && this.lang != 'en' && this.lang != 'ca')
+      this.lang = 'en';
+
+    console.log(this.lang);
   }
 
   preload() {
@@ -174,12 +177,12 @@ export default class FirstScene extends Phaser.Scene {
     //Lifes controll
     if(this.gameEnded == false && this.arrayHearts.length == 0) {
       this.gameEnded = true;
-      window.location.href = "/"+this.lang+"/gameOver?score="+this.scoreTxt.text;
+      window.location.href = "https://pauabella.dev/PlaySpaceShooter/"+this.lang+"/gameOver/?score="+this.scoreTxt.text;
     }
 
     if(this.gameEnded == false && this.arrayEnemiesBase.length == 0) {
       this.gameEnded = true;
-      window.location.href = "/"+this.lang+"/gameWon?score="+this.scoreTxt.text;
+      window.location.href = "https://pauabella.dev/PlaySpaceShooter/"+this.lang+"/gameWon/?score="+this.scoreTxt.text;
     }
 
   }

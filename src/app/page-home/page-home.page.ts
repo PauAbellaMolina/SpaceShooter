@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class PageHomePage implements OnInit {
   lang: string;
-  test: string;
+  routeBuilder: string;
   // router: Router;
 
   constructor(private router: Router) {
@@ -22,14 +22,14 @@ export class PageHomePage implements OnInit {
 
   goPlay() {
     // window.location.href = "/"+this.lang+"/levelSelect";
-    this.test = this.lang + "/levelSelect";
-    this.router.navigate([this.test]);
+    this.routeBuilder = this.lang + "/levelSelect";
+    this.router.navigate([this.routeBuilder]);
   }
 
   goToHowToPlay() {
     // window.location.href = "/"+this.lang+"/howToPlay";
-    this.test = this.lang + "/howToPlay";
-    this.router.navigate([this.test]);
+    this.routeBuilder = this.lang + "/howToPlay";
+    this.router.navigate([this.routeBuilder]);
   }
 
   //Translations of the homepage texts

@@ -1,4 +1,5 @@
 import { Component, NgModule, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -14,11 +15,13 @@ import FirstScene from '../Scenes/FirstScene';
 })
 
 export class ComponentGameLvl1Component implements OnInit {
-
   phaserGame: Phaser.Game;
   config: Phaser.Types.Core.GameConfig;
+  routeBuilder: string;
+  static routeBuilder: string;
 
   constructor(
+    private router: Router,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
@@ -30,6 +33,12 @@ export class ComponentGameLvl1Component implements OnInit {
   ngOnInit(): void {
     this.initializeApp();
     this.initializePhaser();
+  }
+
+  test() {
+    this.routeBuilder = "es/gameOver";
+    console.log(this.routeBuilder);
+    this.router.navigate([this.routeBuilder]);
   }
 
   initializeApp() {
