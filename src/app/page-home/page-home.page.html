@@ -15,7 +15,8 @@
           <p>{{ description() }}<br> {{ subDescription() }}</p>
         </ion-row>
         <ion-row>
-          <button class="subtitle homeBtn" (click)="goPlay()">{{ play() }}</button>
+          <!-- <button class="subtitle homeBtn" (click)="goPlay()">{{ play() }}</button> -->
+          <button class="subtitle homeBtn" [routerLink]="['ca/play']>{{ play() }}</button>
         </ion-row>
         <ion-row>
           <button class="subtitle homeBtn" (click)="goToHowToPlay()">{{ howToPlay() }}</button>
