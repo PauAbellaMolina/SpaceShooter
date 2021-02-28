@@ -10,8 +10,8 @@ export class PageHomePage implements OnInit {
 
   constructor() {
     this.lang = location.pathname.replace('/', '');
-    if(this.lang == "")
-      window.location.href = "/en";
+    //if(this.lang == "")
+      //window.location.href = "/en";
   }
 
   ngOnInit() {
