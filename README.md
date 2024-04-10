@@ -10,3 +10,7 @@ Using Ionic for this project gave me two huge advantages:
 ---
 Play Space Shooter on the browser -> [here](https://spaceshooter.pauabella.dev)  
 Download the Android APK -> [here](https://pauabella.dev/SpaceShooter/app-release.apk)
+
+Check it out:
+
+![image](https://github.com/PauAbellaMolina/SpaceShooter/assets/62839680/2da27bf2-8ebf-46c1-a957-dc4ed3be26b3)
